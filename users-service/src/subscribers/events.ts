@@ -1,0 +1,3 @@
+export const RESEND_VERIFY_MAIL = 'RESEND_VERIFY_MAIL'
+
+export const USER_REGISTER = 'USER_REGISTER'

@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+  api-gateway:
+    build: './api-gateway'
+    depends_on:
+      - todos-service
+      - users-service
+    environment:
+      - TODOS_SERVICE_URI=http://todos-service:4001
+      - USERS_SERVICE_URI=http://users-service:4002
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./api-gateway:/opt/app
+
+  todos-service:
+    build: './todos-service'
+    depends_on:
+      - todos-service-db
+    environment:
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=secret
+      - MONGO_DATABASE=todos
+      - MONGO_HOST=todos-service-db
+      - MONGO_PORT=27017
+    ports:
+      - '4001:4001'
+    volumes:
+      - ./todos-service:/opt/app
+
+  todos-service-db:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: todos
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: secret
+    volumes:
+      - todosdata:/data/db
+      - ./mongo-init-todos.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - '6000:27017'
+
+  users-service:
+    build: './users-service'
+    depends_on:
+      - users-service-db
+    environment:
+      - MONGO_USERNAME=admin
+      - MONGO_PASSWORD=secret
+      - MONGO_DATABASE=auth
+      - MONGO_HOST=users-service-db
+      - MONGO_PORT=27017
+    ports:
+      - '4002:4002'
+    volumes:
+      - ./users-service:/opt/app
+
+  users-service-db:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+      MONGO_INITDB_DATABASE: auth
+      MONGO_USERNAME: admin
+      MONGO_PASSWORD: secret
+    volumes:
+      - usersdata:/data/db
+      - ./mongo-init-users.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - '7000:27017'
+
+volumes:
+  todosdata:
+    external: true
+  usersdata:
+    external: true
+
+# docker volume create --name=todosdata
+# docker volume create --name=usersdata

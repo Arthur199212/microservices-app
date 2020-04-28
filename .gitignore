@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+
+terraform.tfvars
+microservices_app.key
+microservices_app.pem

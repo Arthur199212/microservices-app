@@ -1,0 +1,12 @@
+{
+  "terraform.path": "terraform12",
+  "terraform.indexing": {
+    "enabled": false
+  },
+  "terraform.languageServer": {
+    "enabled": true,
+    "args": []
+  },
+  "totvsLanguageServer.welcomePage": false,
+  "totvsLanguageServer.askEncodingChange": true
+}
