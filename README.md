@@ -17,7 +17,7 @@
 - Material-UI
 - react-beautiful-dnd
 - Yup
-- Formic
+- Formik
 
 ### DevOps
 - Docker + docker-compose
@@ -42,3 +42,7 @@
 - [ ] user can schedule when to do a new task
 - [ ] section 'Today' shows today's todos
 - [ ] section 'Overdue' for all spoiled over todos
+
+## Screenshot
+
+![main_page](https://raw.githubusercontent.com/Arthur199212/microservices-app/master/server/src/assets/screen01.PNG)
