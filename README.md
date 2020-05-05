@@ -1,4 +1,4 @@
-# microcervices-app
+# microservices-app
 
 ## Technologies
 
